@@ -1,0 +1,93 @@
+# --- ENTORNO VIRTUAL ---
+# Coincidiendo con tu carpeta actual 'mi_entorno'
+mi_entorno/
+env/
+venv/
+ENV/
+venv.bak/
+env.bak/
+
+# --- ARCHIVOS DE PYTHON (Compilados) ---
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# --- CONFIGURACIÓN SENSIBLE (¡Seguridad!) ---
+# Aquí viven tus claves de MariaDB y Webpay
+conf.json
+.env
+.venv
+secrets.json
+*.runtimeconfig.json
+
+# --- BASES DE DATOS LOCALES ---
+db.sqlite3
+db.sqlite3-journal
+
+# --- ARCHIVOS DE CARGA Y ESTÁTICOS ---
+# Para no subir los archivos de FontAwesome o imágenes de prueba
+assets/
+static/
+media/
+staticfiles/
+
+# --- HERRAMIENTAS DE DESARROLLO Y SISTEMA ---
+.vscode/
+.idea/
+.project
+.pydevproject
+.settings/
+.DS_Store
+*.log
+Thumbs.db
+desktop.ini
+
+# --- DJANGO ESPECÍFICO ---
+local_settings.py
+db.sqlite3# --- ENTORNO VIRTUAL ---
+env/
+venv/
+ENV/
+
+# --- ARCHIVOS DE PYTHON (Compilados) ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# --- CONFIGURACIÓN SENSIBLE (¡Seguridad!) ---
+# Aquí es donde vive tu conf.json con las claves de MariaDB y Webpay
+conf.json
+.env
+
+# --- ARCHIVOS DE CARGA Y ESTÁTICOS ---
+# Ignoramos assets para no subir los 1700 archivos de FontAwesome
+assets/
+# Ignoramos media porque son las fotos que subes tú al probar la tienda
+media/
+
+# --- BASES DE DATOS LOCALES ---
+db.sqlite3
+
+# --- HERRAMIENTAS DE DESARROLLO Y SISTEMA ---
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.log
