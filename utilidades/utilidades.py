@@ -23,7 +23,7 @@ def getToken(json):
 def traducirToken(token):
 	return jwt.decode(token, settings.SECRET_KEY, algorithms=['HS256'])
 	
-# método para generar el envío del mail al través de SMTO con los datos del config
+# método para generar el envío del mail al través de SMTP con los datos del config
 def sendMail(html, asunto, para):
 	
 	msg = MIMEMultipart('alternative')
