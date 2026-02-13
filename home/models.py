@@ -1,6 +1,6 @@
-from django.db import models							# estandar
+from django.db import models					# estandar
 from django.contrib.auth.models import User		# extender el modelo de usuario
-from autoslug import AutoSlugField					# se crean los slugs auutomáticamente
+from autoslug import AutoSlugField				# se crean los slugs auutomáticamente
 from datetime import datetime, date				# datetime
 
 # para los estados de la orden de compra
