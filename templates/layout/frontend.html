@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en"> {% load static %} {% load utilidades %}
 <head> 
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="Mi E-commerce en Devuan" />
-    <meta name="author" content="Clodomiro" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="author" content="www.nautilus.cl" />
+        <meta name="designer" content="www.nautilus.cl" />
+        <meta name="description" content="{{2|getMetadata}}" />
+        <meta name="keywords" content="{{1|getMetadata}}" />
     <title>{% block title %} {% endblock %} | Tienda Pro</title>
     <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}" />
