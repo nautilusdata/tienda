@@ -90,22 +90,30 @@ set_correo.short_description = 'E-Mail'
 
 
 def get_descripcion(obj):
-	return format_html(f"""<div style="word-wrap:break-word;width:200px;">{obj.descripcion[0:100]}......</div>""")
-get_descripcion.short_descripcion = 'Descripción'
-
+    return format_html('<div style="word-wrap:break-word;width:200px;">{}......</div>', obj.descripcion[0:100])
+get_descripcion.short_description = 'Descripción'
 
 
 def get_foto_producto(obj):
-	if dreamhost.existeArchivo('producto', obj.foto)==False:
-		dreamhost.moverArchivoProducto(obj.foto, obj.id)
-	return format_html(f""" <a href="/assets/upload/producto/{obj.foto}" target="_blank"><img src="/assets/upload/producto/{obj.foto}" width="100" height="100" /> </a>""") 
-get_foto_producto.allow_tags=True
-get_foto_producto.short_description="Foto"
+    if dreamhost.existeArchivo('producto', obj.foto) == False:
+        dreamhost.moverArchivoProducto(obj.foto, obj.id)
+    
+    # Definimos la ruta en una variable para no escribirla tantas veces
+    ruta = f"/assets/upload/producto/{obj.foto}"
+    
+    # Pasamos 'ruta' dos veces para que rellene los dos juegos de llaves {}
+    return format_html('<a href="{}" target="_blank"><img src="{}" width="100" height="100" /></a>', ruta, ruta)
+
+get_foto_producto.short_description = "Foto"
 
 
 def get_foto_producto_galeria(obj):
-	if dreamhost.existeArchivo('producto', obj.foto)==False:
-		dreamhost.moverArchivoProductoGaleria(obj.foto, obj.id)
-	return format_html(f"""<a href="/assets/upload/producto/{obj.foto}" target="_blank">{obj.foto}</a>""")
-get_foto_producto_galeria.allow_tags=True
-get_foto_producto_galeria.short_description="Foto"
+    if dreamhost.existeArchivo('producto', obj.foto) == False:
+        dreamhost.moverArchivoProductoGaleria(obj.foto, obj.id)
+    
+    ruta = f"/assets/upload/producto/{obj.foto}"
+    # El primer {} es para el enlace (href)
+    # El segundo {} es para el texto que se ve (el nombre de la foto)
+    return format_html('<a href="{}" target="_blank">{}</a>', ruta, obj.foto)
+
+get_foto_producto_galeria.short_description = "Foto"
