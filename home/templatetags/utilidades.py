@@ -28,27 +28,18 @@ def getCuantosItemsHayEnElCarrito(users_metadata_id):
 
 @register.filter(name='getMetadata')
 def getMetadata(n):
-    # En lugar de .get(), usamos .filter(id=n).first() 
-    # Esto busca específicamente la fila que necesitas
-    datos = Metadata.objects.filter(id=n).first()
-    
-    # Si no encuentra la fila, devolvemos un texto vacío para que no explote
-    if not datos:
-        return ""
-
-    # Ahora retornamos el campo según el número que pidas
-    if n == 1:
+    datos=Metadata.objects.get()
+    lista=[datos.keyword, datos.description, datos.correo, datos.telefono]
+    if n==1:
         return datos.keyword
-    if n == 2:
+    if n==2:
         return datos.description
-    if n == 3:
+    if n==3:
         return datos.correo
-    if n == 4:
+    if n==4:
         return datos.telefono
-    if n == 5:
+    if n==5:
         return datos.nombre
-    
-    return ""
 
 
 #################FIN BASE DE DATOS
