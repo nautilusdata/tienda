@@ -76,7 +76,7 @@
           {% for relacionado in relacionados %}
             <div class="col mb-5">
               <div class="card h-100">
-                <img class="card-img-top" src="{% static 'upload/producto/'%}{{relacionado.foto}}" alt="{relacionado.nombre}}">
+                <img class="card-img-top" src="{% static 'upload/producto/'%}{{relacionado.foto}}" alt="{relacionado.nombre}">
                 <div class="card-body p-4">
                   <div class="text-center">
                     <h5 class="fw-bolder">{{relacionado.nombre}}</h5>${{relacionado.precio|numberFormat}}</p>
