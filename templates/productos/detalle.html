@@ -16,7 +16,8 @@
                     <div class="carousel-inner">
                       {% for foto in fotos %}
                       <div class="carousel-item {% if forloop.counter0 is 0 %}active{% endif %}">
-                        <img src="{% static 'upload/producto/'%}{{ foto.foto }}" class="d-block w-100" alt="{{datos.nombre}}">                      </div>
+                        <img src="{% static 'upload/producto/'%}{{foto.foto}}" class="d-block w-100" alt="{{datos.nombre}}">
+                      </div>
                       {% endfor %}
                       {# The following div was empty and unneeded #}
                       {# <div class="carousel-item"> </div> #}
@@ -31,7 +32,6 @@
                     </button>
                 </div>
                 </div>
-
             {# Second column for the product details #}
             <div class="col-md-6">
                 <div class="small mb-1">Categoría: <a href="">{{datos.producto_categoria.nombre}}</a></div>
@@ -41,24 +41,25 @@
                     <span>${{datos.precio|numberFormat}}</span>
                 </div>
                 <p class="lead">{{datos.descripcion}}</p>
-                {% if datos.stock is 0 %}
+                {% if datos.stock == 0 %}
                   <span class="alert alert-danger">PRODUCTO SIN STOCK</span>
-
                 {% else %}
-                  <div class="d-flex">
+                <div class="d-flex">
                     Cantidad
-                  </div>
-                  <div class="d-flex">
-                    <select class = "form-control form-control-sm" id = "cantidad" >
+                </div>
+                <div class="d-flex">
+                  <select class="form-control form-control-sm" id="cantidad">
                     {% with ''|center:datos.stock as range %}
                       {% for _ in range %}
-                        <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                        <option value="{{forloop.counter}}">{{forloop.counter}}</option>
                       {% endfor %}
                     {% endwith %}
-                    </select>
-  
+                  </select>
                 </div>
                 <hr/>
+                <div class="d-flex">
+                  <a href="javascript:void(0);" class="boton_agregar_al_carro" onclick="agregarAlCarro();" title="Agregar al carro"><i class="fas fa-cart-plus"></i> Agregar al carro</a>
+                </div>
                 {% endif %}
             </div>
         </div>
