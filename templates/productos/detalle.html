@@ -7,7 +7,32 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg" alt="..." /></div>
+
+            {# First column for the carousel #}
+            <div class="col-md-6">
+                {# Carrusel #}
+                <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+                    <div class="carousel-inner">
+                      {% for foto in fotos %}
+                      <div class="carousel-item {% if forloop.counter0 is 0 %}active{% endif %}">
+                        <img src="{% static 'upload/producto/'%}{{foto.foto}}" class="d-block w-100" alt="{{datos.nombre}}">
+                      </div>
+                      {% endfor %}
+                      {# The following div was empty and unneeded #}
+                      {# <div class="carousel-item"> </div> #}
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+             </div>
+
+            {# Second column for the product details #}
             <div class="col-md-6">
                 <div class="small mb-1">Categoría: <a href="">{{datos.producto_categoria.nombre}}</a></div>
                 <h1 class="display-5 fw-bolder">{{datos.nombre}}</h1>
@@ -27,5 +52,4 @@
         </div>
     </div>
 </section>
-<!-- Related items section-->
 {% endblock %}
