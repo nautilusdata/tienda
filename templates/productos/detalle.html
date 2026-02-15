@@ -11,12 +11,12 @@
             {# First column for the carousel #}
             <div class="col-md-6">
                 {# Carrusel #}
+
                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                       {% for foto in fotos %}
                       <div class="carousel-item {% if forloop.counter0 is 0 %}active{% endif %}">
-                        <img src="{% static 'upload/producto/'%}{{foto.foto}}" class="d-block w-100" alt="{{datos.nombre}}">
-                      </div>
+                        <img src="{% static 'upload/producto/'%}{{ foto.foto }}" class="d-block w-100" alt="{{datos.nombre}}">                      </div>
                       {% endfor %}
                       {# The following div was empty and unneeded #}
                       {# <div class="carousel-item"> </div> #}
@@ -30,7 +30,7 @@
                       <span class="visually-hidden">Next</span>
                     </button>
                 </div>
-             </div>
+                </div>
 
             {# Second column for the product details #}
             <div class="col-md-6">
@@ -41,13 +41,25 @@
                     <span>${{datos.precio|numberFormat}}</span>
                 </div>
                 <p class="lead">{{datos.descripcion}}</p>
-                <div class="d-flex">
-                    <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-                    <button class="btn btn-outline-dark flex-shrink-0" type="button">
-                        <i class="bi-cart-fill me-1"></i>
-                        Add to cart
-                    </button>
+                {% if datos.stock is 0 %}
+                  <span class="alert alert-danger">PRODUCTO SIN STOCK</span>
+
+                {% else %}
+                  <div class="d-flex">
+                    Cantidad
+                  </div>
+                  <div class="d-flex">
+                    <select class = "form-control form-control-sm" id = "cantidad" >
+                    {% with ''|center:datos.stock as range %}
+                      {% for _ in range %}
+                        <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
+                      {% endfor %}
+                    {% endwith %}
+                    </select>
+  
                 </div>
+                <hr/
+                {% endif %}
             </div>
         </div>
     </div>
