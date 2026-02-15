@@ -7,17 +7,14 @@
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
         <div class="row gx-4 gx-lg-5 align-items-center">
-
             {# First column for the carousel #}
             <div class="col-md-6">
                 {# Carrusel #}
-
                 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-inner">
                       {% for foto in fotos %}
                       <div class="carousel-item {% if forloop.counter0 is 0 %}active{% endif %}">
-                        <img src="{% static 'upload/producto/'%}{{foto.foto}}" class="d-block w-100" alt="{{datos.nombre}}">
-                      </div>
+                        <img src="{% static 'upload/producto/'%}{{ foto.foto }}" class="d-block w-100" alt="{{datos.nombre}}">                      </div>
                       {% endfor %}
                       {# The following div was empty and unneeded #}
                       {# <div class="carousel-item"> </div> #}
@@ -32,7 +29,6 @@
                     </button>
                 </div>
                 </div>
-
             {# Second column for the product details #}
             <div class="col-md-6">
                 <div class="small mb-1">Categoría: <a href="">{{datos.producto_categoria.nombre}}</a></div>
@@ -42,20 +38,21 @@
                     <span>${{datos.precio|numberFormat}}</span>
                 </div>
                 <p class="lead">{{datos.descripcion}}</p>
-                {% if datos.stock == 0 %}
+                {% if datos.stock is 0 %}
                   <span class="alert alert-danger">PRODUCTO SIN STOCK</span>
+
                 {% else %}
-                <div class="d-flex">
+                  <div class="d-flex">
                     Cantidad
-                </div>
-                <div class="d-flex">
-                  <select class="form-control form-control-sm w-100" id="cantidad">
+                  </div>
+                  <div class="d-flex">
+                    <select class = "form-control form-control-sm" id = "cantidad" >
                     {% with ''|center:datos.stock as range %}
                       {% for _ in range %}
-                        <option value="{{forloop.counter}}">{{forloop.counter}}</option>
+                        <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
                       {% endfor %}
                     {% endwith %}
-                  </select>
+                    </select>
                 </div>
                 <hr/>
                 <div class="d-flex">
@@ -63,9 +60,31 @@
                 </div>
                 {% endif %}
                 <hr/>
-                <div class="d-flex">
-              <a href="https://api.whatsapp.com/send?phone={{4|getMetadata}}&text=Hola%20necesito%20informaci%C3%B3n%20del%20producto%20 {{datos.nombre}}" class="boton_cotizar_whatsapp w-100" title="Pedir por whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> Pedir por whatsapp</a>
+                <div class = "d-flex">
+                <a href="https://api.whatsapp.com/send?phone={{4|getMetadata}}&text=Hola%20necesito%20informaci%C3%B3n%20del%20producto%20 {{datos.nombre}}" class="boton_cotizar_whatsapp w-100" title="Pedir por whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> Pedir por whatsapp</a>
             </div>
+        </div>
+    </div>
+</section>
+</section>
+<section class="py-5 bg-light">
+  <div class="container px-4 px-lg-5 mt-5">
+      <h2 class="fw-bolder mb-5">
+          Productos relacionados
+      </h2>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          {% for relacionado in relacionados %}
+            <div class="col mb-5">
+              <div class="card h-100">
+                <img class="card-img-top" src="{% static 'upload/producto/'%}{{relacionado.foto}}" alt="{relacionado.nombre}}">
+                <div class="card-body p-4">
+                  <div class="text-center">
+                    <h5 class="fw-bolder">{{relacionado.nombre}}</h5>${{relacionado.precio|numberFormat}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
         </div>
     </div>
 </section>
