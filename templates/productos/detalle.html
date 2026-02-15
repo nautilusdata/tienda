@@ -49,13 +49,10 @@
                     Cantidad
                   </div>
                   <div class="d-flex">
-                    <p>DEBUG: El stock es: {{ datos.stock }} | Tipo: {{ datos.stock|get_digit:1 }}</p>
-                    <select class = "form-control form-control-sm" id = "cantidad" >
-                    {% with ''|center:datos.stock as range %}
-                      {% for _ in range %}
-                        <option value="{{ forloop.counter }}">{{ forloop.counter }}</option>
-                      {% endfor %}
-                    {% endwith %}
+                    <select class="form-control form-control-sm" id="cantidad">
+                        {% for i in stock_range %}
+                            <option value="{{ i }}">{{ i }}</option>
+                        {% endfor %}
                     </select>
   
                 </div>
