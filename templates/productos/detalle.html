@@ -32,6 +32,7 @@
                     </button>
                 </div>
                 </div>
+
             {# Second column for the product details #}
             <div class="col-md-6">
                 <div class="small mb-1">Categoría: <a href="">{{datos.producto_categoria.nombre}}</a></div>
@@ -48,7 +49,7 @@
                     Cantidad
                 </div>
                 <div class="d-flex">
-                  <select class="form-control form-control-sm" id="cantidad">
+                  <select class="form-control form-control-sm w-100" id="cantidad">
                     {% with ''|center:datos.stock as range %}
                       {% for _ in range %}
                         <option value="{{forloop.counter}}">{{forloop.counter}}</option>
@@ -58,9 +59,12 @@
                 </div>
                 <hr/>
                 <div class="d-flex">
-                  <a href="javascript:void(0);" class="boton_agregar_al_carro" onclick="agregarAlCarro();" title="Agregar al carro"><i class="fas fa-cart-plus"></i> Agregar al carro</a>
+                  <a href="javascript:void(0);" class="boton_agregar_al_carro w-100" onclick="agregarAlCarro();" title="Agregar al carro"><i class="fas fa-cart-plus"></i> Agregar al carro</a>
                 </div>
                 {% endif %}
+                <hr/>
+                <div class="d-flex">
+              <a href="https://api.whatsapp.com/send?phone={{4|getMetadata}}&text=Hola%20necesito%20informaci%C3%B3n%20del%20producto%20 {{datos.nombre}}" class="boton_cotizar_whatsapp w-100" title="Pedir por whatsapp" target="_blank"><i class="fab fa-whatsapp"></i> Pedir por whatsapp</a>
             </div>
         </div>
     </div>
