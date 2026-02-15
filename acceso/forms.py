@@ -1,0 +1,1 @@
+from django import forms # solo para poner algo y node lineas amarillas en el editor de codigo, no se va a usar nada de esto por ahora, pero es necesario para que no de error al importar este archivo en las vistas
