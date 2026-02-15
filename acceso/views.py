@@ -12,10 +12,16 @@ from django.conf import settings
 from django.contrib.auth.hashers import make_password
 
 def acceso_login(request):
-    	pass
+    pass
 
 def acceso_registro(request):
-    	pass
+    pass
 
 def acceso_salir(request):
-	pass
+    logout(request)
+    try:
+        del request.session['users_metadata_id']
+    except KeyError:
+        pass
+    messages.add_message(request, messages.WARNING, f'Se cerró la sesión exitosamente.')
+    return HttpResponseRedirect('/acceso/login')
