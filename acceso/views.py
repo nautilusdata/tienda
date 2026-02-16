@@ -77,8 +77,7 @@ def acceso_registro(request):
                 utilidades.sendMail(html, 'Tienda', request.POST['correo'])
                 mensaje = f"Registro exitoso. Por favor verifique su cuenta a través del enlace que le hemos enviado a su correo electrónico {request.POST['correo']} para activar la cuenta."
                 messages.add_message(request, messages.SUCCESS, mensaje)
-                form = Formulario_Registro()  # ← formulario limpio
-                return render(request, 'acceso/registro.html', {'form': form})
+                return HttpResponseRedirect('/acceso/login')
     return render(request, 'acceso/registro.html', {'form': form})
 
 
