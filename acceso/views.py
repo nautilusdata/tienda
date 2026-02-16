@@ -2,23 +2,23 @@ from django.shortcuts import render
 from django.http import Http404, HttpResponseRedirect, HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User
-from home.models import *												# importamos todo
-from .forms import *  														# formularios que vamos a crear
-from django.contrib.auth import authenticate, login, logout	# authenticate de Django para el login
+from home.models import *										# importamos todo
+from .forms import *  										    # formularios que vamos a crear
+from django.contrib.auth import authenticate, login, logout	    # authenticate de Django para el login
 from datetime import datetime, date, timedelta
 from utilidades import utilidades
 import time
-from django.conf import settings										# para algunas configuraciones
+from django.conf import settings								# para algunas configuraciones
 from django.contrib.auth.hashers import make_password		
 
 
 def acceso_login(request):
     if request.user.is_authenticated:
-        return HttpResponseRedirect('/') 								#validación si está logueado lo tiro a inicio
-    form = Formulario_Login(request.POST or None)				#llamada al fomrulario login
-    if request.method == 'POST':											#recibo valores via POST, los valido
+        return HttpResponseRedirect('/') 						#validación si está logueado lo tiro a inicio
+    form = Formulario_Login(request.POST or None)				#llamada al formulario login
+    if request.method == 'POST':								#recibo valores via POST, los valido
         if form.is_valid():
-            correo = request.POST['correo']								#obtengo user  y password
+            correo = request.POST['correo']						#obtengo user y password
             password = request.POST['password']
             user = authenticate(request, username=correo, password=password)
         if user is not None:
