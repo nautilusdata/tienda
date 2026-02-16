@@ -64,6 +64,7 @@ def acceso_registro(request):
                     direccion='',
                     estado_id=2,
                     pais_id=1,
+                    comuna_id=1,
                     perfiles_id=1,
                     user_id=u.id,
                     genero_id=3,
