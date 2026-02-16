@@ -31,6 +31,7 @@ PASSWORD_MAIL_SALIDA = conf['email_password']
 WEBPAY_URL = conf['webpay_url']
 WEBPAY_ID = conf['webpay_id']
 WEBPAY_SECRET = conf['webpay_secret']
+BASE_URL = conf['base_url']  # ← agregar esto
 DEBUG = conf['debug']
 
 ALLOWED_HOSTS = ['127.0.0.1']
