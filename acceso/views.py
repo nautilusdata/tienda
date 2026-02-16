@@ -37,11 +37,11 @@ def acceso_registro(request):
     form = Formulario_Registro(request.POST or None)
     if request.method=='POST':
         if form.is_valid():
-            existe=User.objects.filter(username=request.POST['correo']).count()
-            if existe !=0:
-                mensaje = f"Mail en uso por otro usuario. Intente con otro."
-                messages.add_message(request, messages.WARNING, mensaje)
-                return HttpResponseRedirect('/acceso/registro')
+            existe=User.objects.filter(username=request.POST['correo']).count() #existe un usuario con ese correo?
+            if existe !=0: #si existe, mensaje de error y redirijo a registro
+                mensaje = f"Mail en uso por otro usuario. Intente con otro." #mensaje de error
+                messages.add_message(request, messages.WARNING, mensaje) #mensaje de error
+                return HttpResponseRedirect('/acceso/registro') #si existe, mensaje de error y redirijo a registro
             else:
                 u=User.objects.create_user(username = request.POST['correo'], password = request.POST['password'], email = request.POST['correo'], first_name=request.POST['nombre'], last_name=request.POST['apellido'], is_active=0)
                 UsersMetadata.objects.create(correo=request.POST['correo'], telefono='', direccion='', estado_id=2, pais_id=1, perfiles_id=1, user_id=u.id, genero_id=3, slug = slugify(nombre))
