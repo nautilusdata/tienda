@@ -4,5 +4,6 @@ from .views import *                    #llamado a la vistas con las que vamos a
 urlpatterns = [
 path('login/', acceso_login, name='acceso_login'),  #permite crear form para que user se pueda loguear
 path('registro/', acceso_registro, name='acceso_registro'),
+path('verificacion/<str:token>', acceso_verificacion, name='acceso_verificacion'),
 path('salir/', acceso_salir, name='acceso_salir'),
 ]
