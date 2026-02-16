@@ -9,7 +9,8 @@ from datetime import datetime, date, timedelta
 from utilidades import utilidades
 import time
 from django.conf import settings								# para algunas configuraciones
-from django.contrib.auth.hashers import make_password		
+from django.contrib.auth.hashers import make_password
+from slugify import slugify		
 
 
 def acceso_login(request):
@@ -42,7 +43,7 @@ def acceso_registro(request):
                 mensaje = f"Mail en uso por otro usuario. Intente con otro." #mensaje de error
                 messages.add_message(request, messages.WARNING, mensaje) #mensaje de error
                 return HttpResponseRedirect('/acceso/registro') #si existe, mensaje de error y redirijo a registro
-            else:
+            else: #recordar que debemos registrar al usuario en la tabla de User y en la tabla de UsersMetadata
                 u=User.objects.create_user(username = request.POST['correo'], password = request.POST['password'], email = request.POST['correo'], first_name=request.POST['nombre'], last_name=request.POST['apellido'], is_active=0)
                 UsersMetadata.objects.create(correo=request.POST['correo'], telefono='', direccion='', estado_id=2, pais_id=1, perfiles_id=1, user_id=u.id, genero_id=3, slug = slugify(nombre))
                 ahora = datetime.now()
@@ -50,8 +51,7 @@ def acceso_registro(request):
                 nombre = f"{request.POST['nombre']}-{request.POST['apellido']}"
                 token=utilidades.getToken({'id': u.id, 'time':int(time.time())})
                 url=f"{settings.BASE_URL}acceso/verificacion/{token}"
-                hhtml=f"""Hola {nombre}. Gracias por registrarte en nuestra plataforma.<br>Para completar tu registro, por favor haz clic en el siguiente enlace:<br><a href="{url}">{url}</a><br><br>Si no te has registrado en nuestra plataforma, por favor ignora este mensaje.<br><br>Saludos cordiales,<br>El equipo de Soporte."""
-    
+                html=f"""Hola {nombre}. Gracias por registrarte en nuestra plataforma.<br>Para completar tu registro, por favor haz clic en el siguiente enlace:<br><a href="{url}">{url}</a><br><br>Si no te has registrado en nuestra plataforma, por favor ignora este mensaje.<br><br>Saludos cordiales,<br>El equipo de Soporte."""
     return render(request, 'acceso/registro.html', {'form': form})
 
 def acceso_salir(request):
