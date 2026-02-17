@@ -56,21 +56,23 @@ def acceso_registro(request):
                     email=request.POST['correo'],
                     first_name=request.POST['nombre'],
                     last_name=request.POST['apellido'],
-                    is_active=0
+                    is_active=0 #cuando se registre el usuario no qued ahabilitado para trabajar con la plataforma, ya que primero debe verificar su correo electrónico a través del enlace que se le enviará a su correo electrónico para activar su cuenta, y así evitar que usuarios malintencionados puedan registrarse con correos electrónicos falsos o de otras personas para acceder a la plataforma sin autorización. Por eso es importante dejar el campo is_active en 0 (inactivo) para los usuarios que se registran desde la web, y solo activarlos cuando hayan verificado su correo electrónico a través del enlace que se les envía.
                 )
                 UsersMetadata.objects.create(
                     correo=request.POST['correo'],
                     telefono='',
                     direccion='',
-                    estado_id=2,
+                    estado_id=2, # estado no activo! SIEMPRE DEJAR EL ESTADO INACTIVO PARA LOS USUARIOS QUE SE REGISTRAN DESDE LA WEB, YA QUE SI SE DEJA ACTIVO, EL USUARIO PODRÁ INICIAR SESIÓN Y ACCEDER A TODAS LAS FUNCIONALIDADES DE LA PLATAFORMA SIN HABER VERIFICADO SU CORREO ELECTRÓNICO, LO QUE PUEDE GENERAR PROBLEMAS DE SEGURIDAD Y MAL USO DE LA PLATAFORMA. ASÍ QUE RECOMIENDO CREAR UN ESTADO LLAMADO "INACTIVO" O ALGO SIMILAR, Y ASIGNARLE EL ID 2 PARA QUE SEA EL ESTADO QUE SE ASIGNE AUTOMÁTICAMENTE A LOS USUARIOS QUE SE REGISTRAN DESDE LA WEB.
                     pais_id=1,
-                    comuna_id=1,
+                    comuna_id=1, #OJO ACÁ RECOMENDACION DE CLAUDE: SIEMPRE DEJAR UNA COMUNA POR DEFECTO PARA LOS USUARIOS QUE SE REGISTRAN DESDE LA WEB, YA QUE SI NO SELECCIONAN NINGUNA, EL SISTEMA NO SABRÁ QUÉ COMUNA ASIGNARLES Y GENERARÁ UN ERROR. ASÍ QUE RECOMIENDO CREAR UNA COMUNA LLAMADA "COMUNA POR DEFECTO" O ALGO SIMILAR, Y ASIGNARLE EL ID 1 PARA QUE SEA LA COMUNA QUE SE ASIGNE AUTOMÁTICAMENTE A LOS USUARIOS QUE SE REGISTRAN DESDE LA WEB.
                     perfiles_id=1,
                     user_id=u.id,
                     genero_id=3,
                     slug=slugify(nombre)
                 )
-
+                ahora = datetime.now()
+                fecha = datetime.strptime(f"{ahora.year}-{ahora.month}-{ahora.day}", "%Y-%m-%d")    
+                nombre = f"{request.POST['nombre']}-{request.POST['apellido']}"
                 token = utilidades.getToken({'id': u.id, 'time': int(time.time())})
                 url = f"{settings.BASE_URL}acceso/verificacion/{token}"
                 html = f"""Hola {nombre}. Gracias por registrarte en nuestra plataforma.<br>Para completar tu registro, por favor haz clic en el siguiente enlace:<br><a href="{url}">{url}</a><br><br>Si no te has registrado en nuestra plataforma, por favor ignora este mensaje.<br><br>Saludos cordiales,<br>El equipo de Soporte."""

@@ -25,20 +25,21 @@ def traducirToken(token):
 	
 # método para generar el envío del mail al través de SMTP con los datos del config
 def sendMail(html, asunto, para):
-	
-	msg = MIMEMultipart('alternative')
-	msg['Subject'] = asunto
-	msg['From'] = settings.MAIL_SALIDA
-	msg['To'] = para
-	
-	msg.attach(MIMEText(html, 'html'))
-	try:
-		server = smtplib.SMTP(settings.SERVER_SMTP, settings.PUERTO_SMTP)
-		server.login(settings.MAIL_SALIDA, settings.PASSWORD_MAIL_SALIDA)
-		server.sendmail(settings.MAIL_SALIDA, para, msg.as_string())
-		server.quit()
-	except smtplib.SMTPResponseException as e:
-		pass
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = asunto
+    msg['From'] = settings.MAIL_SALIDA
+    msg['To'] = para
+    
+    msg.attach(MIMEText(html, 'html'))
+    try:
+        server = smtplib.SMTP(settings.SERVER_SMTP, settings.PUERTO_SMTP)
+        server.starttls() # <--- AGREGA ESTA LÍNEA (Es vital para el puerto 587)
+        server.login(settings.MAIL_SALIDA, settings.PASSWORD_MAIL_SALIDA)
+        server.sendmail(settings.MAIL_SALIDA, para, msg.as_string())
+        server.quit()
+        print("¡Correo enviado exitosamente!") # Para que lo veas en tu terminal
+    except Exception as e:
+        print(f"Error al enviar correo: {e}") # <--- ESTO te dirá la verdad en la terminal
 		
 # método validador de  extensiones
 def getExtension(file):
