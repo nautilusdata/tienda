@@ -71,7 +71,7 @@ def set_user(obj):
 set_user.short_description="Usuario"
 
 def set_users_metadata(obj):
-	return f"{obj.users_metadata.user.first_name} {obj.users_metadata.user_last_name}"
+	return f"{obj.users_metadata.user.first_name} {obj.users_metadata.user.last_name}"
 set_users_metadata.short_description = 'Usuario'
 
 
