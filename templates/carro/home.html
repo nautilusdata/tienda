@@ -19,7 +19,7 @@
 <thead class="text-muted">
 <tr>
   <th scope="col" colspan="4" style="text-align: right;">{% if not cuantos is 0 %}
-                        <a class="btn btn-sm btn-outline-danger" href="javascript:void(0);" title="Vaciar carro" onclick="confirmaAlert('¿Realmente desea vaciar su carrito?', '{% url 'carro_vaciar' %}')"><i class="fas fa-shopping-cart"></i> Vaciar carro</a>
+                        <a class="btn btn-sm btn-outline-danger" href="javascript:void(0);" title="Vaciar carro" onclick="confirmaAlert('¿Realmente desea vaciar su carrito?', '{% url &quot;carro_vaciar&quot; %}')"><i class="fas fa-shopping-cart"></i> Vaciar carro</a>
                         {% endif %}<hr/></th>
 </tr>
 <tr>
@@ -60,7 +60,7 @@
     </td>
     <td class="text-right"> 
    
-    <a href="javascript:void(0);" title="Quitar del carro" onclick="confirmaAlert('¿Realmente desea quitar este producto del carrito?', '{% url 'carro_quitar' dato.producto_id %}');" class="btn btn-outline-danger">  Remove</a>
+    <a href="javascript:void(0);" title="Quitar del carro" onclick="confirmaAlert('¿Realmente desea quitar este producto del carrito?', '{% url &quot;carro_quitar&quot; dato.producto_id %}');" class="btn btn-outline-danger">  Remove</a>
     </td>
 </tr>
 {% endfor %}
