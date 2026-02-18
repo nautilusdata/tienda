@@ -34,7 +34,7 @@ def carro_crear(request):
 @logueado()
 def carro_vaciar(request):
     Carrito.objects.filter(users_metadata_id=request.session['users_metadata_id']).delete()
- OrdenDeCompra.objects.filter(users_metadata_id=request.session['users_metadata_id']).filter(estado_id=3).delete()
+    OrdenDeCompra.objects.filter(users_metadata_id=request.session['users_metadata_id']).filter(estado_id=3).delete()
 
 
     messages.add_message(request, messages.SUCCESS, f'Se vació tu carrito exitosamente!!!.')
