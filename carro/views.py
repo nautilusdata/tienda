@@ -59,3 +59,18 @@ def carro_modificar_cantidad(request, id, cantidad):
     Carrito.objects.filter(id=id).update(cantidad=cantidad)
     messages.add_message(request, messages.SUCCESS, f'Se modificó la cantidad del producto {datos.producto.nombre} exitosamente!!!.')
     return HttpResponseRedirect('/carro')
+
+@logueado()
+def carro_pagar(request):
+    cuantos=Carrito.objects.filter(users_metadata_id=request.session['users_metadata_id']).count()
+    if cuantos==0:
+        return HttpResponseRedirect('/carro')
+    datos=Carrito.objects.filter(users_metadata_id=request.session['users_metadata_id']).order_by('-id').all()
+    
+    suma=0
+    for dato in datos:
+        valor=dato.cantidad*dato.producto.precio
+        suma=suma+valor
+    usuario=UsersMetadata.objects.filter(id=request.session['users_metadata_id']).get()
+    comunas=Comuna.objects.all()
+    return render(request, 'carro/pagar.html', {'datos': datos, 'suma': suma, 'usuario': usuario, 'comunas': comunas, 'cuantos': cuantos})
