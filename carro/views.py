@@ -49,3 +49,13 @@ def carro_quitar(request, id):
     Carrito.objects.filter(users_metadata_id=request.session['users_metadata_id']).filter(producto_id=id).delete()
     messages.add_message(request, messages.SUCCESS, f'Se quitó el producto del carrito exitosamente!!!.')
     return HttpResponseRedirect('/carro')
+
+@logueado()
+def carro_modificar_cantidad(request, id, cantidad):
+    try:
+        datos=Carrito.objects.filter(pk=id).get()
+    except Carrito.DoesNotExist:
+        raise Http404
+    Carrito.objects.filter(id=id).update(cantidad=cantidad)
+    messages.add_message(request, messages.SUCCESS, f'Se modificó la cantidad del producto {datos.producto.nombre} exitosamente!!!.')
+    return HttpResponseRedirect('/carro')
