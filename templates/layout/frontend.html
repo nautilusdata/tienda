@@ -76,5 +76,6 @@
         <!-- Core theme JS-->
         <script src="{% static 'js/scripts.js' %}?id={{ csrf_token }}" ></script>
         {% block bloques_js %} {% endblock %}
+        <script src="https://unpkg.com/htmx.org@1.9.12"></script>
     </body>
 </html>
