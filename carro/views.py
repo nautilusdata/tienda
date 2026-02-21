@@ -39,7 +39,7 @@ def carro_vaciar(request):
 
     messages.add_message(request, messages.SUCCESS, f'Se vació tu carrito exitosamente!!!.')
     return HttpResponseRedirect('/carro')
-
+'''
 @logueado()
 def carro_quitar(request, id):
     try:
@@ -47,6 +47,27 @@ def carro_quitar(request, id):
     except Producto.DoesNotExist:
         raise Http404
     Carrito.objects.filter(users_metadata_id=request.session['users_metadata_id']).filter(producto_id=id).delete()
+    messages.add_message(request, messages.SUCCESS, f'Se quitó el producto del carrito exitosamente!!!.')
+    return HttpResponseRedirect('/carro')
+    '''
+
+@logueado()
+def carro_quitar(request, id):
+    try:
+        datos = Producto.objects.filter(pk=id).get()
+    except Producto.DoesNotExist:
+        raise Http404
+    
+    # Lógica de siempre: borrar de la base de datos
+    Carrito.objects.filter(users_metadata_id=request.session['users_metadata_id']).filter(producto_id=id).delete()
+    
+    # --- AQUÍ ESTÁ EL CAMBIO HTMX ---
+    if request.htmx:
+        # No mandamos mensaje de 'messages.add_message' porque no se verá sin recargar
+        # Respondemos vacío para que HTMX elimine la fila de la tabla
+        return HttpResponse("")
+
+    # Si no es HTMX (comportamiento antiguo), mantenemos el redirect y el mensaje
     messages.add_message(request, messages.SUCCESS, f'Se quitó el producto del carrito exitosamente!!!.')
     return HttpResponseRedirect('/carro')
 
